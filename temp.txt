@@ -1,0 +1,74 @@
+<template>
+  <div class="app-container">
+    <!--Filter for the labels shown on the table-->
+    <div class ="filter-container">
+      <el-checkbox-group v-model="checkboxVal">
+        <el-checkbox label="id">
+          ID
+        </el-checkbox>
+         <el-checkbox label="portfolio_id">
+          Portfolio ID
+        </el-checkbox>
+        <el-checkbox label="symbol">
+          Symbol
+        </el-checkbox>
+        <el-checkbox label="price">
+          Price
+        </el-checkbox>
+        <el-checkbox label="quantity">
+          Quantity
+        </el-checkbox>
+        <el-checkbox label="begin">
+          Begin
+        </el-checkbox>
+        <el-checkbox label="end">
+          End
+        </el-checkbox>
+        <el-checkbox label="interest_rate">
+          Interest Rate
+        </el-checkbox>
+        <el-checkbox label="expected_end">
+          Expected End
+        </el-checkbox>
+        <el-checkbox label="create_time">
+          Create Time
+        </el-checkbox>
+        <el-checkbox label="comment">
+          Comment
+        </el-checkbox>
+      </el-checkbox-group>
+    </div>
+    <!--Table that stores bond lending API info -->
+    <el-table :key="key" : data="tableData" border fit highlight-current-row style="width: 100%">
+      <el-table-column prop="id" label="ID" width="100%">
+       <el-table-column v-for="item in tableData" :key="id" :label:"ID">
+         <template slot-scope="scope">
+           {{ scope.row[item] }}
+         </template>
+      <el-table-column>
+    </el-table>
+  </div>  
+</template>
+
+=================================================================================================
+const defaultFormThread = ['portfolio_id', 'symbol', 'price', 'quantity', 'begin', 'end', 'interest_rate', 'expected_end', 'create_time', 'comment']
+export default{
+  data(){
+    return{
+      tableData: [
+        
+      ], 
+      key: 1, 
+      formThreadOptions: ['portfolio_id', 'symbol', 'price', 'quantity', 'begin', 'end', 'interest_rate', 'expected_end', 'create_time', 'comment'],
+      checkboxVal： defaultFormThread,
+      formThread: defaultFormThread
+    }
+  },
+  watch: {
+    checkboxVal(varArr) {
+      this.formThread = this.formThreadOptions.filter(i => varArr.indexOf(i) >= 0);
+      this.key = this.key + 1;
+    }
+  }
+}
+
